@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 无障碍服务在库 AAR 内声明 —— Manifest 合并后集成方零手写；
+         引导用户启用即可（SwarmCursors.openAccessibilitySettings()）。 -->
+    <application>
+        <service
+            android:name="io.swarmcursors.overlay.service.SwarmAccessibilityService"
+            android:label="@string/swarm_service_label"
+            android:description="@string/swarm_service_description"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/swarm_accessibility_service_config" />
+        </service>
+    </application>
+
+</manifest>

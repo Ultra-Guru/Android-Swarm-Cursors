@@ -42,3 +42,4 @@ rootProject.name = "android-swarm-cursors"
 // :overlay —— Android 渲染层（无障碍服务 / TYPE_ACCESSIBILITY_OVERLAY / 主题绘制）
 // :sample —— 演示 App（多光标真实操作演示；后续步骤落地时加入）
 include(":core")
+include(":overlay")

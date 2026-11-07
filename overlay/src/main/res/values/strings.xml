@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="swarm_service_label">Swarm Cursors</string>
+    <string name="swarm_service_description">Multi-cursor visualization and real operations for AI Agents: after enabling, the Agent\'s clicks, inputs, and scrolls will be presented as a swarm of cursors flying in smoothly and completing the operations.</string>
+</resources>
