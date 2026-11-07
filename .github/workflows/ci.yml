@@ -1,0 +1,73 @@
+name: CI
+
+# 编译验证门禁 —— 每次 push / PR 自动：编译全部模块 + 跑全部单元测试 + 产出 AAR。
+# 触发去重：PR 分支推送由 pull_request 事件在 merge ref 上覆盖（语义更准），
+# push 只保留 main 落地终验（对齐主项目 Android-Guru-Agent 的 CI 纪律）。
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch: {}
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: Build & Test (core + overlay + sample)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate Gradle wrapper
+        uses: gradle/actions/wrapper-validation@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Configure pre-installed Android SDK
+        # ubuntu-latest 自带 Android SDK + cmdline-tools/latest；此处幂等补装
+      # 本库钉死的平台与构建工具（已存在则秒过），并写 local.properties。
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install \
+            "platforms;android-36" "build-tools;36.0.0" >/dev/null 2>&1 || true
+          echo "sdk.dir=$ANDROID_HOME" > local.properties
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build & Test
+        # test   —— :core JVM 单测 + :overlay testDebug/ReleaseUnitTest
+        # assemble —— 全模块编译装配（core jar / overlay AAR debug+release / sample APK）
+        run: ./gradlew test assemble --stacktrace
+
+      - name: Upload failure reports
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failure-reports-${{ github.run_id }}
+          path: |
+            **/build/reports/tests/**
+            **/build/reports/lint*/**
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Upload library AARs (main push only)
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: swarm-cursors-aar
+          path: |
+            overlay/build/outputs/aar/*.aar
+          if-no-files-found: ignore
+          retention-days: 14

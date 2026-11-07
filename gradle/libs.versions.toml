@@ -1,0 +1,30 @@
+[versions]
+# 版本矩阵与主项目 Ultra-Guru/Android-Guru-Agent 精确对齐
+# （Gradle 8.14 / AGP 8.13.2 / Kotlin 2.3.21 / coroutines 1.10.2），
+# 保证后续 composite build 接入主项目时零版本摩擦。
+kotlin = "2.3.21"
+agp = "8.13.2"
+coroutines = "1.10.2"
+junit = "4.13.2"
+
+# sample 演示 App 依赖
+appcompat = "1.7.0"
+material = "1.12.0"
+
+[libraries]
+# :core —— 纯 Kotlin 引擎唯一依赖（Flow/suspend API；零 Android 依赖）
+coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+# :overlay —— Android 层需要 Main dispatcher
+coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+# 测试
+coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+# :sample
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
