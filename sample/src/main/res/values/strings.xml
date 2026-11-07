@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Swarm Cursors Demo</string>
+    <string name="title">🐝 Swarm Cursors 演示</string>
+    <string name="subtitle">AI Agent 真实操作执行器 + 多光标可视化代理层</string>
+    <string name="service_status_fmt">无障碍服务：%1$s</string>
+    <string name="service_enabled">已启用 ✓</string>
+    <string name="service_disabled">未启用 ✗</string>
+    <string name="btn_enable_service">去系统设置启用服务</string>
+    <string name="btn_start_demo">▶ 开始蜂群演示</string>
+    <string name="btn_visibility">👁 光标可见性</string>
+    <string name="btn_stop">■ 停止蜂群</string>
+    <string name="hint_log">事件流日志（Moving / Executed / Failed）</string>
+    <string name="tap_me">点我</string>
+    <string name="tap_me_too">也点我</string>
+    <string name="tap_counter_fmt">点击计数：%1$d</string>
+    <string name="tap_celebrate">🎉 庆祝</string>
+    <string name="tap_ping">Ping</string>
+    <string name="input_hint">蜂群光标会在这里输入…</string>
+</resources>

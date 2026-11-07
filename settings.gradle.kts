@@ -40,6 +40,7 @@ rootProject.name = "android-swarm-cursors"
 // ── 模块布局 ────────────────────────────────────────────────────────────────
 // :core   —— 纯 Kotlin JVM 运动引擎（样条插值 / Fitts 时序 / 弹簧落停 / 并发控制）
 // :overlay —— Android 渲染层（无障碍服务 / TYPE_ACCESSIBILITY_OVERLAY / 主题绘制）
-// :sample —— 演示 App（多光标真实操作演示；后续步骤落地时加入）
+// :sample —— 演示 App（多光标真实操作演示）
 include(":core")
 include(":overlay")
+include(":sample")

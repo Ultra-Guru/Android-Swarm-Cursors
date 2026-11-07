@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.SwarmSample" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">#F59E0B</item>
+        <item name="android:statusBarColor">#FAFAFA</item>
+    </style>
+</resources>
